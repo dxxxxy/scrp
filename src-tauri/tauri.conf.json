@@ -31,7 +31,12 @@
       ]
     },
     "security": {
-      "csp": null
+      "csp": null,
+      "dangerousRemoteDomainIpcAccess": [{
+        "domain": "soundcloud.com",
+        "windows": ["main"],
+        "enableTauriAPI": true
+      }]
     },
     "windows": [
       {
