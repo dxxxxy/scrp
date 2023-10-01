@@ -13,7 +13,7 @@ lazy_static! {
 
 #[tauri::command]
 fn presence(playing: bool, title: &str, author: &str, artwork: &str) {
-    print!("Playing: {}, Title: {}, Author: {}, Artwork: {}", playing, title, author, artwork);
+    println!("pulse");
 
     let mut client = RPC.lock().unwrap();
     client.set_activity(activity::Activity::new()
@@ -46,14 +46,20 @@ fn main() {
                 loop {
                     thread::sleep(Duration::from_secs(1));
 
-                    //get state from window
                     window.eval(r#"
-                        __TAURI_INVOKE__("presence", { 
+                        //scrape track info
+                        window.track = {
                             playing: document.querySelector("div.playControls__elements").children[1].classList.contains("playing"),
                             title: document.querySelector("div.playbackSoundBadge__titleContextContainer > div > a > :last-child").innerText,
                             author: document.querySelector("div.playbackSoundBadge__titleContextContainer > a").innerText,
                             artwork: document.querySelector("div.playbackSoundBadge > a > div > span").style.backgroundImage.match(/url\("(.*)"\)/)[1]
-                         })
+                        }
+
+                        //send only if track has changed
+                        if (JSON.stringify(window.track) !== JSON.stringify(window.lastTrack)) __TAURI_INVOKE__("presence", structuredClone(window.track))
+
+                        //save last track
+                        window.lastTrack = window.track
                     "#).unwrap();
                 }
             });
