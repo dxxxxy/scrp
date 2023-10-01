@@ -1,7 +1,17 @@
-# Tauri + Vanilla
+# scrp
+A wrapper for Soundcloud that adds Discord Rich Presence support.
+Lightweight and fast thanks to the `Tauri` app framework.
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
+## Usage
+1. Download the installer from the [releases](https://github.com/dxxxxy/scrp/releases) page.
+2. Run the installer.
+3. Run `scrp` from the start menu.
 
-## Recommended IDE Setup
+## Showcase
+![showcase_1](.github/img.png)
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Disclaimer
+This is for educational purposes only. I am not responsible for any damage caused by this tool.
+
+## License
+GPLv3 © dxxxxy
