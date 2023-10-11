@@ -12,7 +12,13 @@ lazy_static! {
 }
 
 #[tauri::command]
-fn presence(_playing: bool, title: &str, author: &str, artwork: &str, link: &str) {
+fn presence(playing: bool, title: &str, author: &str, artwork: &str, link: &str) {
+    if !playing {
+        let mut client = RPC.lock().unwrap();
+        client.clear_activity().unwrap();
+        return;
+    }
+
     let mut client = RPC.lock().unwrap();
     client.set_activity(activity::Activity::new()
         .state(&title)
